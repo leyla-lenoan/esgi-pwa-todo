@@ -9,25 +9,25 @@ import checkConnectivity from '/js/connection.js';
     skeleton.removeAttribute('active');
     listPage.setAttribute('active', '');
 
-    // teste la connectivité
+    // teste la connectivite
     checkConnectivity();
     document.addEventListener('connection-changed', ({detail}) => {
         console.log(detail);
     });
 
-    // récupération des todo-elements
+    // recuperation des todo-elements
     try {
         const data = await fetch('/data/spacex.json');
         const json = await data.json();
 
-        // création de l'index indexDB
-        const database = await openDB("todo-store", 1, {
+        // creation de l'index indexDB
+        const database = await openDB('todo-store', 1, {
             upgrade(db) {
                 db.createObjectStore('todo');
             },
         });
 
-        // teste si connecté à un réseau
+        // teste si connecte à un reseau
         if(navigator.onLine) {
             await database.put('todo', json, 'todo');
         }
@@ -36,15 +36,15 @@ import checkConnectivity from '/js/connection.js';
             elements = [];
         }
 
-        // création des todo-element dans le DOM
-        elements.map(elem => {
+        // creation des todo-element dans le DOM
+        elements.map(e => {
             let element = new TodoElement();
-            element.init(elem.title, elem.active, elem.id);
+            element.init(e.title, e.active, e.id);
             listPage.appendChild(element);
             return element;
         });
 
-        // listener check element
+        // listener - check une tache
         document.addEventListener('check-task', e => {
             elements[e.detail.id] = {
                 title: e.detail.title,
@@ -54,8 +54,8 @@ import checkConnectivity from '/js/connection.js';
             database.put('todo', elements, 'todo');
         });
 
-        // listener new element
-        document.addEventListener('new-todo', e => {
+        // listener - creation nouvel tache
+        document.addEventListener('new-todo', e => {  
             let id = elements.length;
             elements.push({
                 title: e.detail,
@@ -64,7 +64,7 @@ import checkConnectivity from '/js/connection.js';
             });
             database.put('todo', elements, 'todo');
 
-            // création d'un element dans le DOM
+            // creation d'un element dans le DOM
             let element = new TodoElement();
             element.init(e.detail, true, id);
             listPage.appendChild(element);

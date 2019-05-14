@@ -1,6 +1,6 @@
 import {css, html, LitElement} from "lit-element";
 
-export default class AddTodoBtn extends LitElement {
+export default class TodoBtn extends LitElement {
     constructor() {
         super();
         this.title = "";
@@ -25,6 +25,7 @@ export default class AddTodoBtn extends LitElement {
             a {
                 color: inherit;
             }
+
             a:hover {
                 color: #7f8ff4;
             }
@@ -37,51 +38,13 @@ export default class AddTodoBtn extends LitElement {
                 justify-content: center;
             }
             
-            .container label {
-                color: #fafafa;
+            .container > label {
+                width: 360px;
+                margin: 10px 0 5px;
+                font-size: 1rem;
             }
-            
-            .uppercase {
-                text-transform: uppercase;
-            }
-            
-            .btn {
-                display: inline-block;
-                background: transparent;
-                color: inherit;
-                font: inherit;
-                border: 0;
-                outline: 0;
-                padding: 0;
-                transition: all 200ms ease-in;
-                cursor: pointer;
-            }
-            .btn--primary {
-                background: #7f8ff4;
-                color: #fff;
-                box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
-                border-radius: 2px;
-                padding: 10px 20px;
-            }
-            .btn--primary:hover {
-                background: #6c7ff2;
-            }
-            .btn--primary:active {
-                background: #7f8ff4;
-                box-shadow: inset 0 0 10px 2px rgba(0, 0, 0, 0.2);
-            }
-            .btn--inside {
-                margin-left: -96px;
-            }
-            
-            @media screen and (max-width: 490px) {
-            
-                .btn--inside {
-                    margin: 10px 0;
-                }
-            }
-            
-            .form__field {
+
+            .input {
                 width: 360px;
                 background: #fff;
                 color: #5a5a5a;
@@ -91,12 +54,45 @@ export default class AddTodoBtn extends LitElement {
                 outline: 0;
                 padding: 22px 18px;
             }
+            
+            .uppercase {
+                text-transform: uppercase;
+            }
+            
+            .btn {
+                margin: 10px 0;
+                background: transparent;
+                color: inherit;
+                font: inherit;
+                border: 0;
+                outline: 0;
+                padding: 0;
+                transition: all 200ms ease-in;
+                cursor: pointer;
+            }
+
+            .btn-primary {
+                background: #7f8ff4;
+                color: #fff;
+                box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+                border-radius: 1.25rem;
+                padding: 10px 20px;
+            }
+
+            .btn-primary:hover {
+                background: #6c7ff2;
+            }
+
+            .btn-primary:active {
+                background: #7f8ff4;
+                box-shadow: inset 0 0 10px 2px rgba(0, 0, 0, 0.2);
+            }
         `
     }
 
     addTodo() {
-        let newTodo = this.shadowRoot.querySelector('.form__field');
-        if (newTodo.value !== '') {
+        let newTodo = this.shadowRoot.querySelector('.input');        
+        if (newTodo.value !== '') {            
             const event = new CustomEvent('new-todo', {
                 detail: newTodo.value
             });
@@ -106,12 +102,11 @@ export default class AddTodoBtn extends LitElement {
     }
 
     firstUpdated(_changeProperty) {
-        const btn = this.shadowRoot.querySelector('.btn');
+        let btn = this.shadowRoot.querySelector('.btn');
         btn.addEventListener('click', () => {
             this.addTodo();
         });
-        const input = this.shadowRoot.querySelector('input');
-        input.addEventListener('keydown', e => {
+        this.shadowRoot.querySelector('.input').addEventListener('keydown', e => {
             if (e.keyCode == 13) {
                 btn.click();
             }
@@ -121,14 +116,12 @@ export default class AddTodoBtn extends LitElement {
     render() {
         return html`
             <div class="container">
-                <div class="container__item">
-                    <label for="input-new-todo">New Todo</label>
-                    <input type="text" class="form__field" placeholder="${this.placeholder}" id="input-new-todo"/>
-                    <button class="btn btn--primary btn--inside uppercase">${this.title}</button>
-                </div>
+                <label for="input-new-todo">Nouvelle tâche</label>
+                <input type="text" class="input" placeholder="${this.placeholder}" id="input-new-todo"/>
+                <button class="btn btn-primary uppercase">${this.title}</button>
             </div>
         `;
     }
 }
 
-customElements.define('todo-btn', AddTodoBtn);
+customElements.define('todo-btn', TodoBtn);

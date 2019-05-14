@@ -13,7 +13,7 @@ Après avoir fait un git clone, lancer les commandes :
 ## Lancer le projet
 
 Pour démarer le serveur :
-```$ npx http-server```
+```$ npx polymer serve```
 
 Puis se rendre à l'addresse :
-http://127.0.0.1:8080
+http://127.0.0.1:8081

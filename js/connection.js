@@ -36,19 +36,19 @@ export default function checkConnectivity(timeToCount = 3, threshold = 3000, off
 function checkLatency(timeToCount, offlineTimeout, callback) {
     timeStart = new Date().getTime();
     if(counter < timeToCount) {
-        // image.src = "https://www.google.com/images/phd/px.gif?t=" + timeStart;
-        // image.onload = function(e) {
-        //     abortFallback = true;
-        //     timeEnd = new Date().getTime();
-        //     arrayTimes.push(timeEnd - timeStart);
-        //     checkLatency(timeToCount, offlineTimeout, callback);
-        //     counter++;
-        // };
-        // image.offline = function() {
-        //     setTimeout(() => {
-        //         changeConnectivity(false);
-        //     }, offlineTimeout);
-        // };
+        image.src = "https://www.google.com/images/phd/px.gif?t=" + timeStart;
+        image.onload = function(e) {
+            abortFallback = true;
+            timeEnd = new Date().getTime();
+            arrayTimes.push(timeEnd - timeStart);
+            checkLatency(timeToCount, offlineTimeout, callback);
+            counter++;
+        };
+        image.offline = function() {
+            setTimeout(() => {
+                changeConnectivity(false);
+            }, offlineTimeout);
+        };
     } else {
         const sum = arrayTimes.reduce((a, b) => a + b);
         const avg = sum / arrayTimes.length;

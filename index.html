@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#7f8ff4"/>
+    <meta name="Description" content="An app to list your todos">
+    <title>TODO List</title>
+    <link rel="manifest" href="manifest.json">
+    <!--...-->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register("/service-worker.js", {
+                    scope: '/'
+                });
+            })
+        } else {
+            console.log('Use another cache method :(');
+        }
+    </script>
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<section id="app">
+    <header>
+        <h1>TODO List</h1>
+    </header>
+    <main>
+        <div class="skeleton" active>
+            <div class="element">
+                <div class="title"></div>
+                <div class="description"></div>
+            </div>
+            <div class="element">
+                <div class="title"></div>
+                <div class="description"></div>
+            </div>
+        </div>
+        <section page="list">
+            <todo-btn title="Ajouter un todo" placeholder="Qu'est-ce que vous avez à faire ?"></todo-btn>
+        </section>
+    </main>
+</section>
+<check-connexion message="No connexion"></check-connexion>
+<script type="module" src="js/app.js"></script>
+<script type="module" src="node_modules/wcomponent-check-connexion/connexion.js"></script>
+<script type="module" src="js/components/todo-btn.js" async></script>
+<script type="module" src="js/components/todo-element.js" async></script>
+
+
+</body>
+</html>

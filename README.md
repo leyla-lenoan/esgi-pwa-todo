@@ -1,4 +1,4 @@
-# TD - Faire une TODO List en PWA
+# TD - Faire une Todo List en PWA
 
 ## Initialiser le projet
 

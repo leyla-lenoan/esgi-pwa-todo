@@ -1,6 +1,6 @@
 import {css, html, LitElement} from "lit-element";
 
-export default class TodoBtn extends LitElement {
+export default class TodoForm extends LitElement {
     constructor() {
         super();
         this.title = "";
@@ -92,8 +92,8 @@ export default class TodoBtn extends LitElement {
 
     addTodo() {
         let newTodo = this.shadowRoot.querySelector('.input');        
-        if (newTodo.value !== '') {            
-            const event = new CustomEvent('new-todo', {
+        if (newTodo.value !== '') {    
+            let event = new CustomEvent('new-todo', {
                 detail: newTodo.value
             });
             document.dispatchEvent(event);
@@ -110,18 +110,18 @@ export default class TodoBtn extends LitElement {
             if (e.keyCode == 13) {
                 btn.click();
             }
-        })
+        });
     }
 
     render() {
         return html`
             <div class="container">
                 <label for="input-new-todo">Nouvelle tâche</label>
-                <input type="text" class="input" placeholder="${this.placeholder}" id="input-new-todo"/>
+                <input type="text" id="input-new-todo" class="input" placeholder="${this.placeholder}"/>
                 <button class="btn btn-primary uppercase">${this.title}</button>
             </div>
         `;
     }
 }
 
-customElements.define('todo-btn', TodoBtn);
+customElements.define('todo-form', TodoForm);

@@ -12,7 +12,7 @@ module.exports = {
     "urlPattern": /\.(?:png|gif|jpg|jpeg|svg)$/,
     "handler": "CacheFirst",
     "options": {
-      "cacheName": "todo-cache"
+      "cacheName": "data-cache"
     }
   }],
   "globPatterns": [
